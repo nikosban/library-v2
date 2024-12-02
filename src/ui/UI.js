@@ -1,5 +1,5 @@
 import { Book } from "../collections/book";
-import { Collection } from "../collections/collection";
+import { defaultCollection } from "..";
 
 export function pageContent() {
   //get the container
@@ -7,6 +7,8 @@ export function pageContent() {
 
   //create the header
   header(container);
+
+  renderCollection(defaultCollection);
 }
 
 function header(parent) {
@@ -48,7 +50,7 @@ document.getElementById("submit").addEventListener("click", (event) => {
 });
 
 //add a new Book
-function createBook(defaultCollection) {
+function createBook(collection) {
   let newItem = new Book(
     document.getElementById("title").value,
     document.getElementById("author").value,
@@ -57,6 +59,12 @@ function createBook(defaultCollection) {
     document.getElementById("read").checked,
   );
 
-  defaultCollection.addBook(newItem);
-  console.log(defaultCollection);
+  collection.addBook(newItem);
+  console.log(collection);
+}
+
+function renderCollection(collection) {
+  collection.bookCollection.forEach((book) => {
+    console.log(`Name: ${book.name}`);
+  });
 }
